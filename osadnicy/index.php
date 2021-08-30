@@ -9,17 +9,14 @@
 <body>
     
 <?php
-echo "<h1>Osadnicy Online</h1>";
+echo "<h1>Welcome to Osadnicy Online</h1>";
 ?>
-Osadnicy
+
     <form action="zaloguj.php" method="post">
-        Login: <br/> <input type="text" name="login"/> <br/>
-        Hasło: <br/> <input type="password" name="haslo"/> <br/><br/>
-        <input type="submit" value="zaloguj się lub nie"/>
-
-
-
-
+        Login: <br> <input type="text" name="login"/> <br>
+        Hasło: <br> <input type="password" name="haslo"/> <br><br>
+        <input type="submit" value="zaloguj się"/>
+ 
     </form>
 
 
