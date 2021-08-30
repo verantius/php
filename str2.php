@@ -48,6 +48,10 @@ function sUm (int $a, int $b){
     return $c;
 }
 echo "wynik 5 + 2 = ".sum(5,2)."<br>"."zkonkatenowano";
+echo "<br>";
+echo "<br>";
+echo "<br>";
+
 ?>
 
 </body>
