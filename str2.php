@@ -51,6 +51,7 @@ echo "wynik 5 + 2 = ".sum(5,2)."<br>"."zkonkatenowano";
 echo "<br>";
 echo "<br>";
 echo "hello!";
+echo "hello from my mac !!";
 
 ?>
 
