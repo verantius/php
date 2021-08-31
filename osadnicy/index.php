@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +21,9 @@ echo "<h1>Welcome to Osadnicy Online</h1>";
  
     </form>
 
-
+    <?php 
+    if (isset($_SESSION['blad'])) echo $_SESSION['blad'];
+    ?>
 
 
 
