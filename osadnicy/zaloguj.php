@@ -20,8 +20,10 @@ else
         $ilu_userow = $rezultat->num_rows;
         if($ilu_userow > 0)
         {
+            $_SESSION['zalogowany'] = true;
             $wiersz = $rezultat->fetch_assoc();
             //$user = $wiersz['user']; 
+            $_SESSION['id'] = $wiersz['id'];
             $_SESSION['user'] = $wiersz['user'];
             $_SESSION['drewno'] = $wiersz['drewno'];
             $_SESSION['kamien'] = $wiersz['kamien'];
