@@ -24,7 +24,20 @@ if(isset($_POST['email']))
         $wszystko_ok = false;
         $_SESSION['e_email'] = "Podaj poprawny adress email";
     }
-
+    //sprawdz poprawnosc hasla
+    $haslo1 = $_POST['haslo1'];
+    $haslo2 = $_POST['haslo2'];
+    
+    if((strlen($haslo1) < 8 )||(strlen($haslo1) > 20 ))
+    {
+        $wszystko_ok = false;
+        $_SESSION['e_haslo'] = "Haslo musi posiadać od 8 do 20 znaków!";
+    }
+    if($haslo1!=$haslo2)
+    {
+        $wszystko_ok = false;
+        $_SESSION['e_haslo'] = "Podane hasła nie są identyczne!";
+    }
 
 
 
@@ -76,6 +89,14 @@ if(isset($_POST['email']))
         ?>
 
         Twoje hasło: <br> <input type="password" name="haslo1"><br>
+        <?php
+        if (isset($_SESSION['e_haslo']))
+        {
+            echo '<div class="error">'.$_SESSION['e_haslo'].'</div>';
+            unset($_SESSION['e_haslo']);
+        }
+        ?>
+
         Powtórz hasło: <br> <input type="password" name="haslo2"><br>
         <label >
             <input type="checkbox"name="regulamin"> Akceptuję regulamin
