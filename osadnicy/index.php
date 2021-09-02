@@ -19,6 +19,9 @@ if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
     
     <h1>Welcome to Osadnicy Online</h1>
 
+    <a href="rejestracja.php">Rejestracja - załóż darmowe konto</a>
+    <br><br>
+
     <form action="zaloguj.php" method="post">
         Login: <br> <input type="text" name="login"/> <br>
         Hasło: <br> <input type="password" name="haslo"/> <br><br>
