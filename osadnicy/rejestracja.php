@@ -40,7 +40,14 @@ if(isset($_POST['email']))
     }
 
     $haslo_hash = password_hash($haslo1, PASSWORD_DEFAULT);
-
+    
+    //czy zaakcepowano regulamin?
+    if (!isset($_POST['regulamin']))
+    {
+        $wszystko_ok = false;
+        $_SESSION['e_regulamin'] = "Potwierdź akceptację regulaminu !"; 
+    }
+    
    if($wszystko_ok == true)
    {
        //wszystkie dane dodane poprawnie - gracz w bazie
@@ -96,11 +103,19 @@ if(isset($_POST['email']))
             unset($_SESSION['e_haslo']);
         }
         ?>
+        
 
         Powtórz hasło: <br> <input type="password" name="haslo2"><br>
         <label >
             <input type="checkbox"name="regulamin"> Akceptuję regulamin
         </label>
+        <?php
+        if (isset($_SESSION['e_regulamin']))
+        {
+            echo '<div class="error">'.$_SESSION['e_regulamin'].'</div>';
+            unset($_SESSION['e_regulamin']);
+        }
+        ?>
         <br><br>
         <input type="submit" value="zarejestruj się">
     </form>
