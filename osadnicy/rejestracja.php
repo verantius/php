@@ -39,7 +39,7 @@ if(isset($_POST['email']))
         $_SESSION['e_haslo'] = "Podane hasła nie są identyczne!";
     }
 
-
+    $haslo_hash = password_hash($haslo1, PASSWORD_DEFAULT);
 
    if($wszystko_ok == true)
    {
