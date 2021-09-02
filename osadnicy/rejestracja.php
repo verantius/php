@@ -17,8 +17,13 @@ if(isset($_POST['email']))
    }
    //sprawdz poprawwnosc email
     $email = $_POST['email'];
-    $emailB = filter_var($email,FILTER_SANITIZE_EMAIL);
-    echo $emailB; exit();
+    $emailB = filter_var($email,FILTER_SANITIZE_EMAIL);//filtrując usuwa min polskaie znaki
+    
+    if ((filter_var($emailB,FILTER_VALIDATE_EMAIL) == false)||($emailB!=$email))
+    {
+        $wszystko_ok = false;
+        $_SESSION['e_email'] = "Podaj poprawny adress email";
+    }
 
 
 
@@ -60,7 +65,16 @@ if(isset($_POST['email']))
             unset($_SESSION['e_nick']);
         }
         ?>
+
         e-mail: <br> <input type="text" name="email"><br>
+        <?php
+        if (isset($_SESSION['e_email']))
+        {
+            echo '<div class="error">'.$_SESSION['e_email'].'</div>';
+            unset($_SESSION['e_email']);
+        }
+        ?>
+
         Twoje hasło: <br> <input type="password" name="haslo1"><br>
         Powtórz hasło: <br> <input type="password" name="haslo2"><br>
         <label >
