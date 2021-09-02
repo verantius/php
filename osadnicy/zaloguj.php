@@ -26,7 +26,7 @@ else
     if ($rezultat = @$polaczenie->query(
         sprintf("SELECT * FROM uzytkownicy WHERE user='%s' AND pass='%s'",
         mysqli_real_escape_string($polaczenie,$login),
-        mysqli_real_escape_string($polaczenie,$login))))
+        mysqli_real_escape_string($polaczenie,$haslo))))
     {
         $ilu_userow = $rezultat->num_rows;
         if($ilu_userow > 0)
