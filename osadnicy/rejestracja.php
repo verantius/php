@@ -4,6 +4,7 @@ session_start();
 if(isset($_POST['email']))
 {
    $wszystko_ok=true; //udana walidacja
+   
    $nick = $_POST['nick']; //poprawnosc nicka
    if((strlen($nick) < 3 )||(strlen($nick) > 20 ))
    {
