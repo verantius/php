@@ -54,16 +54,41 @@ if(isset($_POST['email']))
     mysqli_report(MYSQLI_REPORT_STRICT);
     try
     {
-        $polaczenie = new mysqli($host,$db_user,"aaa",$db_name);
+        $polaczenie = new mysqli($host,$db_user,$db_password,$db_name);
         if ($polaczenie->connect_errno!= 0)
         {
             throw new Exception(mysqli_connect_errno());
+        }
+        else{
+            //czy email juz istnieje
+            $rezultat = $polaczenie->query("SELECT id FROM uzytkownicy WHERE email='$email'");
+            
+            if(!$rezultat) throw new Exception($polaczenie->error);
+
+            $ile_takich_maili = $rezultat->num_rows;
+            if($ile_takich_maili > 0)
+            {
+                $wszystko_ok=false;
+                $_SESSION['e_email'] = "Istnieje już konto przypisane do tego adresu e-mail";
+            }
+            //czy nick jest już zarezerwowany
+            $rezultat = $polaczenie->query("SELECT id FROM uzytkownicy WHERE user='$nick'");
+            
+            if(!$rezultat) throw new Exception($polaczenie->error);
+
+            $ile_takich_nickow = $rezultat->num_rows;
+            if($ile_takich_nickow > 0)
+            {
+                $wszystko_ok=false;
+                $_SESSION['e_nick'] = "Istnieje już gracz o takim nicku";
+            }
+            $polaczenie->close();
         }
     }
     catch(Exception $e)
     {
         echo '<span style="color:red;">  Błąd servera! Przepraszamy!</span>';
-        echo '<br>Informacja developerska:'.$e;
+        //echo '<br>Informacja developerska:'.$e;
     }
     //------------------------------------1
 //1
