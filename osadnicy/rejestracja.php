@@ -65,7 +65,7 @@ if(isset($_POST['email']))
         echo '<br>Informacja developerska:'.$e;
     }
     //------------------------------------1
-
+//1
 
 
 
