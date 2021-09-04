@@ -49,6 +49,26 @@ if(isset($_POST['email']))
         $_SESSION['e_regulamin'] = "Potwierdź akceptację regulaminu !"; 
     }
     
+    require_once "connect.php";
+    //------------------------------------
+    try
+    {
+        $polaczenie = new mysqli($host,$db_user,"aaa",$db_name);
+        if ($polaczenie->connect_errno!= 0)
+        {
+            throw new Exception(mysqli_connect_errno());
+        }
+    }
+    catch(Exception $e)
+    {
+        echo '<span style="color:red;">  Błąd servera! Przepraszamy!</span>';
+        echo '<br>Informacja developerska:'.$e;
+    }
+    //------------------------------------1
+
+
+
+
    if($wszystko_ok == true)
    {
        //wszystkie dane dodane poprawnie - gracz w bazie
