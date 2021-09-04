@@ -51,6 +51,7 @@ if(isset($_POST['email']))
     
     require_once "connect.php";
     //------------------------------------
+    mysqli_report(MYSQLI_REPORT_STRICT);
     try
     {
         $polaczenie = new mysqli($host,$db_user,"aaa",$db_name);
