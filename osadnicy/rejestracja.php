@@ -82,13 +82,27 @@ if(isset($_POST['email']))
                 $wszystko_ok=false;
                 $_SESSION['e_nick'] = "Istnieje już gracz o takim nicku";
             }
+
+            if($wszystko_ok==true)
+            {
+                //wszystko ok dodajemy do bazy
+                if($polaczenie->query("INSERT INTO uzytkownicy VALUES (NULL,'$nick','$haslo_hash','$email',100,100,100,14)"))
+                {
+                    $_SESSION['udanarejestracja']=true;
+                    header('Location: witamy.php');
+                }
+                else{
+                    throw new Exception($polaczenie->error);
+                }
+            }
+
             $polaczenie->close();
         }
     }
     catch(Exception $e)
     {
         echo '<span style="color:red;">  Błąd servera! Przepraszamy!</span>';
-        //echo '<br>Informacja developerska:'.$e;
+        echo '<br>Informacja developerska:'.$e;
     }
     //------------------------------------1
 //1
