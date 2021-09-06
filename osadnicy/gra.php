@@ -23,6 +23,28 @@ echo "<p><b>Drewno: </b>".$_SESSION['drewno']." | "."<b>Kamien: </b>".$_SESSION[
 
 echo "<p><b>e-mail: </b>".$_SESSION['email'];
 echo "<p><b>Dni premium: </b>".$_SESSION['dnipremium'];
+
+//Początek odcinka 4
+
+echo "<br>";
+echo time();
+echo "<br>";
+echo mktime();
+echo "<br>";
+echo date('d-m-y h:i:s')."<br>";
+
+// sprawdzanie czasu metoda objektowa
+$dataczas = new DateTime();
+echo $dataczas->format('Y-m-d H:i:s')."<br>".print_r($dataczas);
+
+$dzien = 26;
+$miesiac = 7;
+$rok = 1875;
+
+if(checkdate($miesiac,$dzien, $rok))
+    echo "<br>Poprawna data!";
+else  echo "<br>Niepoprawna data!";
+
 ?>
 
 
