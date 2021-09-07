@@ -9,6 +9,8 @@ else{
     unset($_SESSION['udanarejestracja']);
 }
 echo "witamy witamy";
+echo "i kolejne";
+
 
 
 ?>
