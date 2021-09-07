@@ -8,6 +8,7 @@ if (!isset($_SESSION['udanarejestracja']))
 else{
     unset($_SESSION['udanarejestracja']);
 }
+echo "witamy witamy";
 ?>
 
 <!DOCTYPE html>
