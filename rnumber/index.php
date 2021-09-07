@@ -33,7 +33,7 @@
         else {
             echo "brak rozwiązań";
         } 
-
+        echo "<br>";
         ?>
         
 
