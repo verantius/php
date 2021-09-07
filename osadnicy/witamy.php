@@ -10,6 +10,7 @@ else{
 }
 echo "witamy witamy";
 echo "i kolejne";
+echo "i kolejne i kolejne";
 
 
 
