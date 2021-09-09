@@ -1,8 +1,9 @@
 <?php
+session_start();
 
 require_once "connect.php";
 mysqli_report(MYSQLI_REPORT_STRICT);
-try {
+//try {
 
     $polaczenie = new mysqli($host,$db_user,$db_password,$db_name);
 
@@ -13,15 +14,17 @@ try {
         $login = $_POST['login'];
         $pass = $_POST['pass'];
 
-        $login = htmlentities($login, ENT_QUOTES, "UTF-8");
-        $haslo = htmlentities($haslo, ENT_QUOTES, "UTF-8");
+       // $login = htmlentities($login, ENT_QUOTES, "UTF-8");
+       // $haslo = htmlentities($haslo, ENT_QUOTES, "UTF-8");
 
-        //$sql = "SELECT * FROM users WHERE user='$login' and pass='$haslo'";
+        $sql = "SELECT * FROM users WHERE user='$login' and pass='$haslo'";
         
-        if($rezultat = $polaczenie->query(
-            sprintf("SELECT * FROM uzytkownicy WHERE user='%s' AND pass='%s'",
-            mysqli_real_escape_string($polaczenie,$login),
-            mysqli_real_escape_string($polaczenie,$haslo))))
+        if(
+            $rezultat = $polaczenie->query($sql)
+            //sprintf("SELECT * FROM uzytkownicy WHERE user='%s' AND pass='%s'",
+            //mysqli_real_escape_string($polaczenie,$login),
+            //mysqli_real_escape_string($polaczenie,$haslo)))
+            )
         {
             $ilu_userow = $rezultat->num_rows;
             if($ilu_userow>0)
@@ -52,12 +55,13 @@ try {
         $polaczenie->close();
     }
 
+/*
 }
 catch (Exception $e)
 {
     //print_r($e);
     echo "wystąpił problem z połączeniem z bazą danych  ";
 }
-
+*/
 
 ?>

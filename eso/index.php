@@ -1,3 +1,7 @@
+<?php
+
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -15,6 +19,11 @@
         Password:   <br><input type="password" name="pass"><br><br>
                     <input type="submit" value="log in">
     </form>
+
+    <?php
+        if(isset($_SESSION['blad']))    
+            echo $_SESSION['blad'];
+    ?>
     
 </body>
 </html>
