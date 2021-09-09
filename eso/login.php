@@ -13,7 +13,19 @@ try {
         $login = $_POST['login'];
         $pass = $_POST['pass'];
 
-        $login = htmlentities($login);
+        $login = htmlentities($login,ENT_QUOTES,"UTF-8");
+        $haslo = htmlentities($haslo, ENT_QUOTES,"UTF-8");
+
+        //$sql = "SELECT * FROM users WHERE user='$login' and pass='$haslo'";
+        
+        if($rezultat = $polaczenie->query(
+            sprintf("SELECT * FROM uzytkownicy WHERE user='%s'",
+            mysqli_real_escape_string($polaczenie,$login),
+            mysqli_real_escape_string($polaczenie,$haslo))
+        ))
+        {
+
+        }
 
 
 
