@@ -1,15 +1,18 @@
 <?php
-session_start();
+//session_start();
 
 require_once "connect.php";
-//mysqli_report(MYSQLI_REPORT_STRICT);
-//try {
+
+mysqli_report(MYSQLI_REPORT_STRICT);
+//try 
+//{
 
     $polaczenie = new mysqli($host,$db_user,$db_password,$db_name);
 
     if ($polaczenie->connect_errno!=0)
     {
-        echo "error:".$polaczene->connect_errno."opis: ".$polaczenie->connect_error;
+        echo "error:".$polaczenie->connect_errno;
+        //."opis: ".$polaczenie->connect_error; - pokazuje w której linii jest blad
     }
        // throw new Exception(mysqli_connect_error());
     else
@@ -17,21 +20,22 @@ require_once "connect.php";
         $login = $_POST['login'];
         $pass = $_POST['pass'];
 
+        $sql = "SELECT * FROM users WHERE user='$login' and pass='$pass'";
+
        // $login = htmlentities($login, ENT_QUOTES, "UTF-8");
        // $haslo = htmlentities($haslo, ENT_QUOTES, "UTF-8");
 
-        $sql = "SELECT * FROM users WHERE user='$login' and pass='$haslo'";
-        
-        if($rezultat = $polaczenie->query($sql))
-        {
-            $ilu_userow = $rezultat->num_rows;
-            if($ilu_userow>0)
-            {
+       
+       if($rezultat = $polaczenie->query($sql))
+       {
+           $ilu_userow = $rezultat->num_rows;
+           if($ilu_userow>0)
+           {
+               $wiersz = $rezultat->fetch_assoc();
+               $user = $wiersz['user'];
+                /*
                 //$_SESSION['zalogowany'] = true;
 
-                $wiersz = $rezultat->fetch_assoc();
-                $user=$wiersz['user'];
-/*
                 $_SESSION['id'] = $wiersz['id'];
                 $_SESSION['user'] = $wiersz['user'];
                 $_SESSION['email'] = $wiersz['email'];
@@ -39,23 +43,24 @@ require_once "connect.php";
                 $_SESSION['telvar'] = $wiersz['telvar'];
                 $_SESSION['crowns'] = $wiersz['crowns'];
                 unset($_SESSION['blad']);
-*/
-                $rezultat->free_result();
                 echo $user;
                 //header('Location: gra.php');
+                */
+                $rezultat->free_result();
+                echo $user;
             }
             else
             {
-                $_SESSION['blad'] = "no jest problem z polaczeniem";
-                header('Location:index.php');
+                //$_SESSION['blad'] = "no jest problem z polaczeniem";
+                //header('Location:index.php');
             }
 
+            $polaczenie->close();
         }
-
-        $polaczenie->close();
     }
+        /*
+    
 
-/*
 }
 catch (Exception $e)
 {
