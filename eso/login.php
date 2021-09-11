@@ -9,8 +9,8 @@ if((!isset($_POST['login']))||(!isset($_POST['pass'])))
 require_once "connect.php";
 
 mysqli_report(MYSQLI_REPORT_STRICT);
-//try 
-//{
+try 
+{
 
     $polaczenie = new mysqli($host,$db_user,$db_password,$db_name);
 
@@ -18,28 +18,31 @@ mysqli_report(MYSQLI_REPORT_STRICT);
     {
         echo "error:".$polaczenie->connect_errno;
         //."opis: ".$polaczenie->connect_error; - pokazuje w której linii jest blad
+         throw new Exception(mysqli_connect_error());
     }
-       // throw new Exception(mysqli_connect_error());
     else
     {
         $login = $_POST['login'];
         $pass = $_POST['pass'];
 
-        $sql = "SELECT * FROM users WHERE user='$login' and pass='$pass'";
+        //$sql = "SELECT * FROM users WHERE user='$login' and pass='$pass'";
 
-       // $login = htmlentities($login, ENT_QUOTES, "UTF-8");
-       // $haslo = htmlentities($haslo, ENT_QUOTES, "UTF-8");
+        $login = htmlentities($login, ENT_QUOTES, "UTF-8");
+        $pass = htmlentities($pass, ENT_QUOTES, "UTF-8");
 
        
-       if($rezultat = $polaczenie->query($sql))
+       if($rezultat = $polaczenie->query(
+           sprintf("SELECT * FROM users WHERE user='%s' and pass='%s'",
+           mysqli_escape_string($polaczenie,$login),
+           mysqli_escape_string($polaczenie,$pass))))
        {
            $ilu_userow = $rezultat->num_rows;
            if($ilu_userow>0)
            {
+               $_SESSION['zalogowany'] = true;
                $wiersz = $rezultat->fetch_assoc();
-               $user = $wiersz['user'];
+               //$user = $wiersz['user'];
                 
-                $_SESSION['zalogowany'] = true;
 
                 $_SESSION['id'] = $wiersz['id'];
                 $_SESSION['user'] = $wiersz['user'];
@@ -63,7 +66,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
             $polaczenie->close();
         }
     }
-        /*
+        
     
 
 }
@@ -72,7 +75,7 @@ catch (Exception $e)
     //print_r($e);
     echo "wystąpił problem z połączeniem z bazą danych  ";
 }
-*/
+
 
 //sprintf("SELECT * FROM uzytkownicy WHERE user='%s' AND pass='%s'",
 //mysqli_real_escape_string($polaczenie,$login),
