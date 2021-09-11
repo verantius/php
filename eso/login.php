@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 
 require_once "connect.php";
 
@@ -33,8 +33,8 @@ mysqli_report(MYSQLI_REPORT_STRICT);
            {
                $wiersz = $rezultat->fetch_assoc();
                $user = $wiersz['user'];
-                /*
-                //$_SESSION['zalogowany'] = true;
+                
+                $_SESSION['zalogowany'] = true;
 
                 $_SESSION['id'] = $wiersz['id'];
                 $_SESSION['user'] = $wiersz['user'];
@@ -42,17 +42,17 @@ mysqli_report(MYSQLI_REPORT_STRICT);
                 $_SESSION['gold'] = $wiersz['gold'];
                 $_SESSION['telvar'] = $wiersz['telvar'];
                 $_SESSION['crowns'] = $wiersz['crowns'];
+                
                 unset($_SESSION['blad']);
-                echo $user;
-                //header('Location: gra.php');
-                */
+                
+                header('Location: gra.php');
                 $rezultat->free_result();
-                echo $user;
+               
             }
             else
             {
-                //$_SESSION['blad'] = "no jest problem z polaczeniem";
-                //header('Location:index.php');
+                $_SESSION['blad'] = "no jest problem z polaczeniem";
+                header('Location:index.php');
             }
 
             $polaczenie->close();
