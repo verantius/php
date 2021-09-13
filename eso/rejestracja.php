@@ -54,44 +54,54 @@ mysqli_report(MYSQLI_REPORT_STRICT);
 try
 {
     $polaczenie = new mysqli($host,$db_user,$db_password,$db_name);
+
     if ($polaczenie->connect_errno!=0)
     {
         throw new Exception(mysqli_connect_errno());
     }
     else
     {
-        $baza = "SELECT id FROM users WHERE user='$nick'";
-        $rezultat = $polaczenie->query($baza);
-        
+        $sqmail = ("SELECT id FROM users WHERE email='$email'");
+        $rezultat = $polaczenie->query($sqmail);
+
         if(!$rezultat) throw new Exception($polaczenie->error);
-        
-        $ile_takich_nickow = $rezultat->num_rows;
-        if ($ile_takich_nickow>0)
+
+        $ile_takich_maili = $rezultat->num_rows;
+
+        if($ile_takich_maili>0)
         {
-            $wszystko_OK=false;
-            $_SESSION['e_nick']=="Ten nick już istnieje w systemie!";
+            $wszystko_OK = false;
+            $_SESSION['e_mail'] = "istnieje w bazie taki email!";
         }
         
-        //kiedy wszystko ok
-        if ($wszystko_OK==true)
+        $sqlogin = ("SELECT id FROM users WHERE user='$login'");
+        $rezultat = $polaczenie->query($sqlogin);
+
+        if(!$polaczenie) throw new Exception($polaczenie->error);
+
+        $ile_takich_nickow = $rezultat->num_rows;
+
+        if($ile_takich_nickow>0)
         {
-            if ($polaczenie->query("INSERT INTO uzytkownicy VALUES (NULL, '$nick', '$haslo_hash', '$email', 100, 100, 100, 14)"))
+            $wszystko_OK = false;
+            $_SESSION['e_nick']="Istieje już w bazie taki nick! wybierz inny";
+        }
+        if($wszystko_OK==true)
+        {
+            if($polaczenie->query("INSERT INTO users VALUES (NULL, '$nick','$pass_hash','$email',1500,1000,250)"))
             {
                 $_SESSION['udanarejestracja']=true;
-                header('Location: witamy.php');
+                //header("Location: witamy.php");
+                
             }
             else
             {
                 throw new Exception($polaczenie->error);
             }
         }
-        
-
-
-
-
         $polaczenie->close();
-    }
+    } 
+
 }
 catch(Exception $e)
 {
