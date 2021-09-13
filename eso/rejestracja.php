@@ -50,7 +50,7 @@ if (isset($_POST['email']))
 }
 
 require_once "connect.php";
-mysqli_report(MYSQLI_REPORT_STRICT);
+//mysqli_report(MYSQLI_REPORT_STRICT);
 try
 {
     $polaczenie = new mysqli($host,$db_user,$db_password,$db_name);
