@@ -19,6 +19,7 @@ if (isset($_POST['email']))
     }
 
     $email = $_POST['email'];
+    
     $email_san = filter_var($email, FILTER_SANITIZE_EMAIL);
     
     if ((filter_var($email, FILTER_SANITIZE_EMAIL)==false) || ($email_san!=$email))
@@ -50,15 +51,12 @@ if (isset($_POST['email']))
         $_SESSION['e_reg']="potwierdz regulamin!";
     }
 
-    if ($wszystko_OK==true)
-    {
-        echo "udna walidacja!";
-    }
+    
 }
 
-/*
 require_once "connect.php";
 //mysqli_report(MYSQLI_REPORT_STRICT);
+
 try
 {
     $polaczenie = new mysqli($host,$db_user,$db_password,$db_name);
@@ -69,7 +67,7 @@ try
     }
     else
     {
-        
+      
         $rezultat = $polaczenie->query("SELECT id FROM users WHERE email='$email'");
 
         if(!$rezultat) throw new Exception($polaczenie->error);
@@ -79,10 +77,10 @@ try
         if($ile_takich_maili>0)
         {
             $wszystko_OK = false;
-            $_SESSION['e_mail'] = "istnieje w bazie taki email!";
+            $_SESSION['e_email'] = "istnieje w bazie taki e-mail!";
         }
         
-        
+/*
         $rezultat = $polaczenie->query("SELECT id FROM users WHERE user='$nick'");
 
         if(!$polaczenie) throw new Exception($polaczenie->error);
@@ -107,6 +105,7 @@ try
                 throw new Exception($polaczenie->error);
             }
         }
+*/
         $polaczenie->close();
     } 
 
@@ -116,7 +115,7 @@ catch(Exception $e)
     echo '<span style="color:red;">wystąpił problem z połączniem. spróbuj później</span>';
     
 }
-*/
+
 ?>
 
 <!DOCTYPE html>
@@ -153,7 +152,7 @@ catch(Exception $e)
         }
     ?>
     
-    e-mail: <br> <input type="text" name="email"><br>
+    e-mail: <br> <input type="text" name="email"/><br>
     
     <?php
         if(isset($_SESSION['e_email']))
