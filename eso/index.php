@@ -19,6 +19,8 @@
     <h1>Witaj w Elder Scrolls Online</h1>
     <h2>gra przeglądarkowa</h2>
 
+    <a href="rejestracja.php">Rejestracja - załóż darmowe konto</a>
+<br><br>
     <form action="login.php" method="post">
         Login:     <br><input type="text" name="login"><br>
         Password:   <br><input type="password" name="pass"><br><br>

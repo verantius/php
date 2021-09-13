@@ -28,33 +28,40 @@ try
         //$sql = "SELECT * FROM users WHERE user='$login' and pass='$pass'";
 
         $login = htmlentities($login, ENT_QUOTES, "UTF-8");
-        $pass = htmlentities($pass, ENT_QUOTES, "UTF-8");
+        //$pass = htmlentities($pass, ENT_QUOTES, "UTF-8");
 
        
        if($rezultat = $polaczenie->query(
-           sprintf("SELECT * FROM users WHERE user='%s' and pass='%s'",
-           mysqli_escape_string($polaczenie,$login),
-           mysqli_escape_string($polaczenie,$pass))))
+           sprintf("SELECT * FROM users WHERE user='%s'",
+           mysqli_escape_string($polaczenie,$login))))
        {
            $ilu_userow = $rezultat->num_rows;
            if($ilu_userow>0)
            {
-               $_SESSION['zalogowany'] = true;
                $wiersz = $rezultat->fetch_assoc();
-               //$user = $wiersz['user'];
-                
 
-                $_SESSION['id'] = $wiersz['id'];
-                $_SESSION['user'] = $wiersz['user'];
-                $_SESSION['email'] = $wiersz['email'];
-                $_SESSION['gold'] = $wiersz['gold'];
-                $_SESSION['telvar'] = $wiersz['telvar'];
-                $_SESSION['crowns'] = $wiersz['crowns'];
-                
-                unset($_SESSION['blad']);
-                
-                header('Location: gra.php');
-                $rezultat->free_result();
+               if(password_verify($pass,$wiersz['pass']))
+               {
+                   $_SESSION['zalogowany'] = true;
+                   //$user = $wiersz['user'];
+                    
+    
+                    $_SESSION['id'] = $wiersz['id'];
+                    $_SESSION['user'] = $wiersz['user'];
+                    $_SESSION['email'] = $wiersz['email'];
+                    $_SESSION['gold'] = $wiersz['gold'];
+                    $_SESSION['telvar'] = $wiersz['telvar'];
+                    $_SESSION['crowns'] = $wiersz['crowns'];
+                    
+                    unset($_SESSION['blad']);
+                    $rezultat->free_result();
+                    header('Location: gra.php');
+               }
+               else
+               {
+                    $_SESSION['blad'] = "no jest problem z polaczeniem";
+                    header('Location:index.php');
+               }
                
             }
             else

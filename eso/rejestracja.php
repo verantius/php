@@ -41,14 +41,22 @@ if (isset($_POST['email']))
         $wszystko_OK=false;
         $_SESSION['e_pass1']="Hasła nie są jednakowe";
     }
-    //$pass_hash = password_hash($pass1, PASSWORD_DEFAULT);
+    $pass_hash = password_hash($pass1, PASSWORD_DEFAULT);
+    
+
     if (!isset($_POST['reg']))
     {
-        $wszystko_OK==false;
-        $_SESSION['e_reg']=="potwierdz regulamin!";
+        $wszystko_OK=false;
+        $_SESSION['e_reg']="potwierdz regulamin!";
+    }
+
+    if ($wszystko_OK==true)
+    {
+        echo "udna walidacja!";
     }
 }
 
+/*
 require_once "connect.php";
 //mysqli_report(MYSQLI_REPORT_STRICT);
 try
@@ -61,8 +69,8 @@ try
     }
     else
     {
-        $sqmail = ("SELECT id FROM users WHERE email='$email'");
-        $rezultat = $polaczenie->query($sqmail);
+        
+        $rezultat = $polaczenie->query("SELECT id FROM users WHERE email='$email'");
 
         if(!$rezultat) throw new Exception($polaczenie->error);
 
@@ -74,8 +82,8 @@ try
             $_SESSION['e_mail'] = "istnieje w bazie taki email!";
         }
         
-        $sqlogin = ("SELECT id FROM users WHERE user='$login'");
-        $rezultat = $polaczenie->query($sqlogin);
+        
+        $rezultat = $polaczenie->query("SELECT id FROM users WHERE user='$nick'");
 
         if(!$polaczenie) throw new Exception($polaczenie->error);
 
@@ -108,8 +116,8 @@ catch(Exception $e)
     echo '<span style="color:red;">wystąpił problem z połączniem. spróbuj później</span>';
     
 }
+*/
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -140,7 +148,7 @@ catch(Exception $e)
     <?php
         if(isset($_SESSION['e_nick']))
         {
-          echo '<div class="error">'.$_SESSION['nick'].'</div>'; 
+          echo '<div class="error">'.$_SESSION['e_nick'].'</div>'; 
           unset($_SESSION['e_nick']); 
         }
     ?>
@@ -150,8 +158,8 @@ catch(Exception $e)
     <?php
         if(isset($_SESSION['e_email']))
         {
-            echo '<div class="error">'.$_SESSION['email'].'</div>';
-            unset($_SESSION['email']);
+            echo '<div class="error">'.$_SESSION['e_email'].'</div>';
+            unset($_SESSION['e_email']);
         }
     ?>
     
@@ -160,15 +168,15 @@ catch(Exception $e)
     <?php
         if(isset($_SESSION['e_pass1']))
         {
-            echo '<div class="error">'.$_SESSION['pass1'].'</div>';
-            unset($_SESSION['pass1']);
+            echo '<div class="error">'.$_SESSION['e_pass1'].'</div>';
+            unset($_SESSION['e_pass1']);
         }
     ?>
 
-    powtórz hasło: <br> <input type="password" name="pass2"><br>
+    powtórz hasło: <br> <input type="password" name="pass2"><br><br>
     
     <label>
-        akceptuję regulamin: <br> <input type="checkbox" name="reg"><br>
+        <input type="checkbox" name="reg"/> Akceptuję regulamin<br>
     </label>
 
     <?php
