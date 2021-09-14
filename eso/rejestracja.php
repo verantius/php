@@ -22,7 +22,7 @@ if (isset($_POST['email']))
     
     $email_san = filter_var($email, FILTER_SANITIZE_EMAIL);
     
-    if ((filter_var($email, FILTER_SANITIZE_EMAIL)==false) || ($email_san!=$email))
+    if ((filter_var($email_san, FILTER_SANITIZE_EMAIL)==false) || ($email_san!=$email))
     {
         $wszystko_OK=false;
         $_SESSION['e_email']= "Podaj poprawny email";
@@ -55,7 +55,7 @@ if (isset($_POST['email']))
 }
 
 require_once "connect.php";
-//mysqli_report(MYSQLI_REPORT_STRICT);
+mysqli_report(MYSQLI_REPORT_STRICT);
 
 try
 {
@@ -68,7 +68,9 @@ try
     else
     {
       
-        $rezultat = $polaczenie->query("SELECT id FROM users WHERE email='$email'");
+        
+        $rezultat = @$polaczenie->query("SELECT id FROM users WHERE email = '$email'");
+        
 
         if(!$rezultat) throw new Exception($polaczenie->error);
 
@@ -80,8 +82,8 @@ try
             $_SESSION['e_email'] = "istnieje w bazie taki e-mail!";
         }
         
-/*
-        $rezultat = $polaczenie->query("SELECT id FROM users WHERE user='$nick'");
+
+        $rezultat = @$polaczenie->query("SELECT id FROM users WHERE user = '$nick'");
 
         if(!$polaczenie) throw new Exception($polaczenie->error);
 
@@ -92,7 +94,8 @@ try
             $wszystko_OK = false;
             $_SESSION['e_nick']="Istieje już w bazie taki nick! wybierz inny";
         }
-        if($wszystko_OK==true)
+        
+        if(@$wszystko_OK == true)
         {
             if($polaczenie->query("INSERT INTO users VALUES (NULL, '$nick','$pass_hash','$email',1500,1000,250)"))
             {
@@ -105,7 +108,7 @@ try
                 throw new Exception($polaczenie->error);
             }
         }
-*/
+
         $polaczenie->close();
     } 
 
