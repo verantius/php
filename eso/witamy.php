@@ -8,9 +8,9 @@ if (!isset($_SESSION['udanarejestracja']))
 else{
     unset($_SESSION['udanarejestracja']);
 }
-echo "witamy witamy";
-echo "i kolejne";
-echo "i kolejne i kolejne";
+//echo "witamy witamy";
+//echo "i kolejne";
+//echo "i kolejne i kolejne";
 
 
 

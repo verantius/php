@@ -100,7 +100,7 @@ try
             if($polaczenie->query("INSERT INTO users VALUES (NULL, '$nick','$pass_hash','$email',1500,1000,250)"))
             {
                 $_SESSION['udanarejestracja']=true;
-                //header("Location: witamy.php");
+                header("Location: witamy.php");
                 
             }
             else
