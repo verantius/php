@@ -15,82 +15,87 @@ input[type='checkbox'] {margin-left: 5px}
 </head>
 <body>
 <?php
-if (isset($_POST['submit'])) {
-//checking name
-if(empty($_POST['full_name']))
-$msg_name = "You must supply your name";
-$name_subject = $_POST['full_name'];
-$name_pattern = '/^[a-zA-Z ]*$/';
-preg_match($name_pattern, $name_subject, $name_matches);
-if(!$name_matches[0])
-$msg2_name = "Only alphabets and white space allowed";
-//check email
-if(empty($_POST['email_addr']))
-$msg_email = "You must supply your email";
-$email_subject = $_POST['email_addr'];
-$email_pattern = '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/';
-preg_match($email_pattern, $email_subject, $email_matches);
-if(!$email_matches[0])
-$msg2_email = "Must be of valid email format";
-//check package
-if(empty($_POST['package']))
-$msg_package = "You must select a package";
-//date validation
-if(empty($_POST['arv_dt']))
-$msg_dt = "You must supply an arival date";
-if(!empty($_POST['arv_dt']))
+if (isset($_POST['submit'])) 
 {
-    $dt = $_POST['arv_dt'];
-    $array = explode("/",$dt);
+  //checking name
+  if(empty($_POST['full_name']))
+  $msg_name = "You must supply your name";
+  $name_subject = $_POST['full_name'];
+  $name_pattern = '/^[a-zA-Z ]*$/';
+  preg_match($name_pattern, $name_subject, $name_matches);
 
-    $day = $array[1];
-    $month = $array[0];
-    $year = $array[2];
+  if(!$name_matches[0])
+  $msg2_name = "Only alphabets and white space allowed";
 
-    if(!checkdate($month, $day, $year))
-    {
-    $msg2_dt = "Must be in m/d/y format";
-    }
-    else
-    {
-    $today = strtotime("now");
-    if(strtotime($dt)<$today)
-    $msg3_dt = "Date supplied is before present day";
-    }
-}
-//checking for non-empty and non-negative integer
-if(empty($_POST['persons']))
-$msg_persons = "You must supply number of persons travelling";
-if(!empty($_POST['persons']))
-{
-$persons = $_POST['persons'];
-preg_match("@^([1-9][0-9]*)$@", $persons, $persons_match);
-if(!$persons_match[0])
-$msg2_persons = "Must be non negative integer";
-}
-//check discount coupon
-//[^a-z0-9_]
-if($_POST['dis_code'])
-{
- $dis_code = $_POST['dis_code'];
- preg_match("/^[a-zA-Z0-9]+$/", $dis_code, $dis_match);
- if(!$dis_match[0])
- $msg_dis = "Must be alphanumric"; 
- if(strlen($dis_code)!='10')
- $msg2_dis = "Must be 10 characters long";
-}
-//checking facilities
-$facilities = $_POST['facilities'];
-  if(empty($facilities)) 
+  //check email
+  if(empty($_POST['email_addr']))
+  $msg_email = "You must supply your email";
+  $email_subject = $_POST['email_addr'];
+  $email_pattern = '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/';
+  preg_match($email_pattern, $email_subject, $email_matches);
+  if(!$email_matches[0])
+  $msg2_email = "Must be of valid email format";
+  
+  //check package
+  if(empty($_POST['package']))
+  $msg_package = "You must select a package";
+  
+  //date validation
+  if(empty($_POST['arv_dt']))
+  $msg_dt = "You must supply an arival date";
+  if(!empty($_POST['arv_dt']))
   {
-    $msg_facilities = "You must select facilities";
-  } 
- 
- if(!empty($_POST['facilities'])) {
-    $no_checked = count($_POST['facilities']);
-    if($no_checked<2)
-    $msg2_facilities = "Select at least two options";
-    }
+      $dt = $_POST['arv_dt'];
+      $array = explode("/",$dt);
+
+      $day = $array[1];
+      $month = $array[0];
+      $year = $array[2];
+
+      if(!checkdate($month, $day, $year))
+      {
+      $msg2_dt = "Must be in m/d/y format";
+      }
+      else
+      {
+      $today = strtotime("now");
+      if(strtotime($dt)<$today)
+      $msg3_dt = "Date supplied is before present day";
+      }
+  }
+  //checking for non-empty and non-negative integer
+  if(empty($_POST['persons']))
+  $msg_persons = "You must supply number of persons travelling";
+  if(!empty($_POST['persons']))
+  {
+  $persons = $_POST['persons'];
+  preg_match("@^([1-9][0-9]*)$@", $persons, $persons_match);
+  if(!$persons_match[0])
+  $msg2_persons = "Must be non negative integer";
+  }
+  //check discount coupon
+  //[^a-z0-9_]
+  if($_POST['dis_code'])
+  {
+  $dis_code = $_POST['dis_code'];
+  preg_match("/^[a-zA-Z0-9]+$/", $dis_code, $dis_match);
+  if(!$dis_match[0])
+  $msg_dis = "Must be alphanumric"; 
+  if(strlen($dis_code)!='10')
+  $msg2_dis = "Must be 10 characters long";
+  }
+  //checking facilities
+  $facilities = $_POST['facilities'];
+    if(empty($facilities)) 
+    {
+      $msg_facilities = "You must select facilities";
+    } 
+  
+  if(!empty($_POST['facilities'])) {
+      $no_checked = count($_POST['facilities']);
+      if($no_checked<2)
+      $msg2_facilities = "Select at least two options";
+      }
 }
 ?>
 <?php
@@ -132,11 +137,13 @@ $msg_success = "You filled this form up correctly";
   <input type="text" name="full_name" placeholder="FirstName LastName" autofocus="autofocus" value="<?php echo $_POST['full_name']; ?>">   
   <?php echo "<p class='note'>".$msg_name."</p>";?>
   <?php echo "<p class='note'>".$msg2_name."</p>";?>
+
   <label>Email address<span class="note">*</span>:</label>
   <input type="text" name="email_addr" value="<?php echo $_POST['email_addr']; ?>">
    <?php echo "<p class='note'>".$msg_email."</p>";?>
   <?php echo "<p class='note'>".$msg2_email."</p>";?>
-   <label>Select Tour Package<span class="note">*</span>:</label>	
+  
+  <label>Select Tour Package<span class="note">*</span>:</label>	
    <select name="package">
 	<option value="Goa" <?= ($_POST['package'] == "1")? "selected":"";?>>Goa</options>
 	<option value="Kashmir" <?= ($_POST['package'] == "2")? "selected":"";?>>Kashmir</options>
