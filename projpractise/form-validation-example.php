@@ -149,6 +149,7 @@ $msg_success = "You filled this form up correctly";
 	<option value="Kashmir" <?= ($_POST['package'] == "2")? "selected":"";?>>Kashmir</options>
 	<option value="Rajasthan" <?= ($_POST['package'] == "3")? "selected":"";?>>Rajasthan</options>
    </select>
+
   <?php echo "<p class='note'>".$msg_package."</p>";?>
   <label>Arrival date<span class="note">*</span>:</label>
   <input type="text" name="arv_dt" placeholder="m/d/y" value="<?php echo $_POST['arv_dt']; ?>">
@@ -160,9 +161,11 @@ $msg_success = "You filled this form up correctly";
   <?php echo "<p class='note'>".$msg_persons."</p>";?>
   <?php echo "<p class='note'>".$msg2_persons."</p>";?>
  <label>What would you want to avail?<span class="note">*</span></label>  
+
  Boarding<input type="checkbox" name="facilities[]" value="boarding" <?php if(isset($_POST['submit']) && isset($_POST['facilities'][0])) echo "checked" ?> >
  Fooding<input type="checkbox" name="facilities[]" value="fooding" <?php if(isset($_POST['submit']) && isset($_POST['facilities'][1])) echo "checked" ?> >
  Sight seeing<input type="checkbox" name="facilities[]" value="sightseeing" <?php if(isset($_POST['submit']) && isset($_POST['facilities'][2])) echo "checked" ?> >
+ 
  <?php echo "<p class='note'>".$msg_facilities."</p>";?>
  <?php echo "<p class='note'>".$msg2_facilities."</p>";?>
  <label>Discout Coupon code:</label>
