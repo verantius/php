@@ -8,16 +8,16 @@ if (isset($_POST['submit']))
         $error_surname = "Jakie masz nazwisko?";
     
     if(empty($_POST['email']))
-        $error_surname = "Jaki posiadasz adress email?";
+        $error_email = "Jaki posiadasz adress email?";
     
     if(empty($_POST['username']))
-        $error_surname = "Podaj jaki chcesz mieć nick";
+        $error_nick = "Podaj jaki chcesz mieć nick";
 
     if(empty($_POST['birth']))
-        $error_surname = "Kiedy się urodziłeś?";
+        $error_birth = "Kiedy się urodziłeś?";
 
     if(empty($_POST['haslo1']))
-        $error_surname = "Jakie masz nazwisko?";
+        $error_password = "ustaw swoje hasło";
 
 
 
@@ -59,15 +59,19 @@ if (isset($_POST['submit']))
             
             <label>email:</label><br>
             <input type="text" name="email" placeholder="podaj email"><br><br>
+            <?php  if(isset($error_email)) echo "<p class='wiadomosc'>".$error_email."</p>";?>
             
             <label>username:</label><br>
             <input type="text" name="username" placeholder="podaj username"><br><br>
+            <?php  if(isset($error_nick)) echo "<p class='wiadomosc'>".$error_nick."</p>";?>
             
             <label>data urodzenia:</label><br>
             <input type="text" name="birth" placeholder="kiedy się urodziłeś? d/m/r"><br><br>
+            <?php  if(isset($error_birth)) echo "<p class='wiadomosc'>".$error_birth."</p>";?>
             
             <label>hasło:</label><br>
             <input type="password" name="haslo1"><br>
+            <?php  if(isset($error_password)) echo "<p class='wiadomosc'>".$error_password."</p>";?>
             <label>powtórz hasło:</label><br>
             <input type="password" name="haslo2"><br><br>
 
