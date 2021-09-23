@@ -1,8 +1,13 @@
 <?php
+if (isset($_POST['submit']))
+{   
+    if(empty($_POST['imie']))
+    {
+        $error_name = "Jak masz na imię?";
+    }
 
+}
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -15,9 +20,9 @@
     <link href="parsely.css" rel="stylesheet">
     <style type="text/css">
     h1 {margin-bottom:20px}
-    input, label {margin-top:7px; margin-bottom:7px; color:#000066; font-size: 18px; padding-right: 7px}
+    input, label {margin-top:2px; margin: bottom 1px; color:#000066; font-size: 16px; padding-right: 7px}
     input[type='checkbox'] {margin-left: 5px}
-    .note {color: #ff0000}
+    .wiadomosc {color: #ff0000}
     .success_msg{color:#006600}
     </style>
 </head>
@@ -27,8 +32,14 @@
         <h2>uzupełnij wszystkie dane</h2>
         <form id="rejestration_form" method="post" action="">
             <label>imię:</label><br>
-            <input type="text" name="imie" autofocus="autofocus" placeholder="podaj Imię"><br><br>
+            <input type="text" name="imie" autofocus="autofocus" placeholder="podaj Imię">
             
+            <?php 
+            if(isset($error_name))
+            echo "<p class='wiadomosc'>".$error_name."</p>";
+            
+            ?><br>
+
             <label>nazwisko:</label><br>
             <input type="text" name="nazwisko" placeholder="podaj Nazwisko"><br><br>
             
@@ -46,26 +57,14 @@
             <label>powtórz hasło:</label><br>
             <input type="password" name="haslo2"><br><br>
 
-            <label>Akceptuję regulamin</label>
-            <input type="radio" name="service" value="agree"><br><br>
+            <!-- <label>Akceptuję regulamin</label>
+            <input type="radio" name="service" value="agree"><br><br> -->
 
             <button type="submit" class="btn btn-large btn-primary" name="submit">Rejestracja</button>
 
 
 
-
-
-
-
         </form>
-
-
-
-
-
-
-
-
     </div>
 </body>
 </html>
