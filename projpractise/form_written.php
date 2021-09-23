@@ -3,24 +3,31 @@ session_start();
 if (isset($_POST['submit']))
 {   
     $rejestration_complete = true;
-
+    
     $imie = $_POST['imie'];
     if (empty($imie))
     {
-
         $_SESSION['error_name'] = "Jak masz na imię?";
+        $rejestration_complete = false;
     }
-    else if (strlen($imie<3))
+    else if (strlen($imie)<3)
     {
-
         $_SESSION['error_name'] = "Twoje imie musi posiadać przynajmniej 3 znaki";
+        $rejestration_complete = false;
     }
-    if (strlen($imie>7))
+    else if (strlen($imie)>7)
     {
-
         $_SESSION['error_name'] = "Twoje imie nie moze byc wieksze niz 7 znakow";
+        $rejestration_complete = false;
     }
-
+    //$name_pattern = '/^[a-zA-Z]*$/';
+    $name_pattern = "@^([1-9][0-9]*)$@";
+    preg_match($name_pattern, $imie,$name_matches);
+    if (!isset($name_matches[0]))
+    {
+        $_SESSION['error_name'] = "Twoje imie nie moze zawierac znaków specjalnych";
+        $rejestration_complete = false;
+    }
 
 
 
@@ -55,7 +62,7 @@ if (isset($_POST['submit']))
         <form id="rejestration_form" method="post" action="">
             <label>imię:</label>  <br>
             <input type="text" name="imie" autofocus="autofocus" placeholder="podaj Imię"><br><br>
-            <?php  if(isset($_SESSION['error_name'])) echo "<p class='wiadomosc'>".$_SESSION['error_name']."</p>"; unset($_SESSION['error_name']);?>
+            <?php  if(isset($_SESSION['error_name'])) echo "<div class='wiadomosc'>".$_SESSION['error_name']."</div>"; unset($_SESSION['error_name']);?>
             
             <label>nazwisko:</label><br>
             <input type="text" name="nazwisko" placeholder="podaj Nazwisko"><br><br>
